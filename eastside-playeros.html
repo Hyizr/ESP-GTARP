@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EastSide Playeros | ESP — NoFace WL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c8a84b;
+    --gold-light: #e8c87a;
+    --gold-dim: rgba(200,168,75,0.15);
+    --red: #8b1a1a;
+    --red-bright: #c0392b;
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #181818;
+    --border: rgba(200,168,75,0.25);
+    --text: #d4cfc8;
+    --text-dim: #7a756e;
+    --white: #f0ebe3;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(139,26,26,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 80% at 80% 70%, rgba(200,168,75,0.06) 0%, transparent 60%),
+      linear-gradient(180deg, #0a0a0a 0%, #0d0a07 100%);
+  }
+
+  .header-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 80%);
+    opacity: 0.4;
+  }
+
+  .seal {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin-bottom: 2rem;
+    animation: sealIn 1.2s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  .seal svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 30px rgba(200,168,75,0.5));
+  }
+
+  @keyframes sealIn {
+    from { opacity:0; transform: scale(0.6) rotate(-15deg); }
+    to   { opacity:1; transform: scale(1) rotate(0deg); }
+  }
+
+  .header-content {
+    position: relative;
+    text-align: center;
+    z-index: 2;
+    padding: 2rem;
+    animation: fadeUp 1s 0.3s both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(30px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+
+  .tag-server {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+    opacity: 0.7;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 12vw, 140px);
+    line-height: 0.9;
+    letter-spacing: 4px;
+    color: var(--white);
+    text-shadow: 0 0 80px rgba(200,168,75,0.3);
+  }
+
+  h1 span { color: var(--gold); }
+
+  .header-sub {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(14px, 2.5vw, 22px);
+    font-weight: 300;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 0.5rem;
+  }
+
+  .divider-gold {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1.5rem auto;
+  }
+
+  .header-motto {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-dim);
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-dim);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    animation: bounce 2s infinite;
+  }
+
+  .scroll-cue::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(var(--gold), transparent);
+  }
+
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--gold);
+    padding: 0 1.5rem;
+    border-right: 1px solid var(--border);
+    white-space: nowrap;
+    letter-spacing: 2px;
+  }
+
+  nav button {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 1.1rem 1.4rem;
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative;
+    transition: color 0.2s;
+  }
+
+  nav button::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.25s;
+  }
+
+  nav button:hover { color: var(--white); }
+  nav button.active { color: var(--gold); }
+  nav button.active::after { transform: scaleX(1); }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  section {
+    padding: 5rem 0;
+    border-bottom: 1px solid rgba(200,168,75,0.08);
+    display: none;
+  }
+
+  section.active { display: block; }
+
+  /* ── SECTION HEADER ── */
+  .section-header { margin-bottom: 3.5rem; }
+
+  .section-eyebrow {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 6vw, 80px);
+    line-height: 1;
+    color: var(--white);
+    letter-spacing: 2px;
+  }
+
+  h2 .accent { color: var(--gold); }
+
+  h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── HISTOIRE ── */
+  .histoire-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .histoire-text p {
+    margin-bottom: 1.2rem;
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.9;
+  }
+
+  .histoire-text p:first-child::first-letter {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    line-height: 0.8;
+    float: left;
+    margin-right: 12px;
+    color: var(--gold);
+    margin-top: 10px;
+  }
+
+  .stat-block {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--gold);
+  }
+
+  .stat-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--white);
+    letter-spacing: 2px;
+  }
+
+  /* ── MEMBRES ── */
+  .membres-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .membre-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+
+  .membre-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+  }
+
+  .membre-card.expanded .membre-details { display: block; }
+
+  /* Zone Discord remplace l'ancienne zone noire */
+  .membre-discord-zone {
+    width: 100%;
+    background: var(--bg3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 1.2rem 1.4rem 1rem;
+    border-bottom: 1px solid var(--border);
+    min-height: 90px;
+  }
+
+  .membre-discord-zone .rank-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--red);
+    color: var(--white);
+    font-family: 'Oswald', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    z-index: 2;
+  }
+
+  .membre-discord-zone .deco-num {
+    position: absolute;
+    bottom: -14px;
+    right: 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    line-height: 1;
+    color: rgba(200,168,75,0.06);
+    pointer-events: none;
+  }
+
+  .discord-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.6;
+    margin-bottom: 0.3rem;
+  }
+
+  .discord-pseudo {
+    font-family: 'Oswald', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.5px;
+    margin-bottom: 0.15rem;
+  }
+
+  .discord-id {
+    font-family: 'Source Sans 3', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+  }
+
+  .membre-info { padding: 1.4rem; }
+
+  .membre-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: var(--white);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+
+  .membre-alias {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-bottom: 0.8rem;
+  }
+
+  .membre-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .membre-details {
+    display: none;
+    padding: 0 1.4rem 1.4rem;
+    border-top: 1px solid var(--border);
+    margin-top: 0.8rem;
+    padding-top: 1rem;
+  }
+
+  .membre-details p {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 0.6rem;
+  }
+
+  .membre-tag {
+    display: inline-block;
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    margin: 2px;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+  }
+
+  .expand-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 0.8rem;
+    opacity: 0.7;
+  }
+
+  /* ── OBJECTIFS ── */
+  .objectifs-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .objectif-bloc {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+  }
+
+  .objectif-bloc::after {
+    content: attr(data-terme);
+    position: absolute;
+    top: -1px; left: 2rem;
+    background: var(--gold);
+    color: var(--bg);
+    font-family: 'Oswald', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+  }
+
+  .objectif-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--white);
+    margin: 1.2rem 0 1rem;
+    letter-spacing: 1px;
+  }
+
+  .objectif-list { list-style: none; }
+
+  .objectif-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(200,168,75,0.08);
+    font-size: 13.5px;
+    color: var(--text);
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+  }
+
+  .objectif-list li::before {
+    content: '▸';
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── PRESENTATION ── */
+  .pres-hero {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 3rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pres-hero::before {
+    content: 'ESP';
+    position: absolute;
+    right: -20px; top: -40px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 220px;
+    color: rgba(200,168,75,0.03);
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .pres-hero p {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--text);
+    max-width: 700px;
+    margin-bottom: 1.2rem;
+  }
+
+  .pres-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .info-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 1.8rem;
+    position: relative;
+  }
+
+  .info-card-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+
+  .info-card-body {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* ── AMBITIONS ── */
+  .ambitions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .ambition-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    align-items: start;
+    padding: 2rem;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .ambition-item:hover { border-color: var(--gold); }
+
+  .ambition-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    line-height: 1;
+    color: rgba(200,168,75,0.15);
+    letter-spacing: 2px;
+  }
+
+  .ambition-content h3 { margin-bottom: 0.5rem; font-size: 18px; }
+
+  .ambition-content p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  /* ── LEAD HRP ── */
+  .lead-wrapper {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .lead-id-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    position: sticky;
+    top: 80px;
+  }
+
+  .lead-id-top {
+    background: var(--red);
+    padding: 1.2rem 1.4rem;
+    position: relative;
+  }
+
+  .lead-id-top::after {
+    content: 'LEAD';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .lead-id-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 0.2rem;
+  }
+
+  .lead-id-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 3px;
+    color: #fff;
+  }
+
+  .lead-id-body {
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .lead-id-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(200,168,75,0.08);
+  }
+
+  .lead-id-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .lead-id-key {
+    font-family: 'Oswald', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.6;
+  }
+
+  .lead-id-val {
+    font-family: 'Oswald', sans-serif;
+    font-size: 15px;
+    color: var(--white);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    word-break: break-all;
+  }
+
+  .lead-id-val.mono {
+    font-family: 'Source Sans 3', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  /* Expériences */
+  .lead-xp {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .lead-server-block {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .lead-server-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .lead-server-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 2px;
+    color: var(--white);
+  }
+
+  .lead-server-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .lead-xp-list {
+    padding: 1rem 0;
+  }
+
+  .lead-xp-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid rgba(200,168,75,0.05);
+    transition: background 0.2s;
+  }
+
+  .lead-xp-item:last-child { border-bottom: none; }
+  .lead-xp-item:hover { background: rgba(200,168,75,0.04); }
+
+  .lead-xp-role {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.6;
+    margin-bottom: 0.15rem;
+  }
+
+  .lead-xp-name {
+    font-size: 14px;
+    color: var(--white);
+    font-weight: 400;
+  }
+
+  .lead-xp-duration {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    background: rgba(200,168,75,0.08);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+  }
+
+  /* ── FACETTES ── */
+  .facettes-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .facette-panel {
+    padding: 2.5rem;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .facette-panel.legal { background: linear-gradient(135deg, #0a120a, #0d0d0a); }
+  .facette-panel.illegal { background: linear-gradient(135deg, #120a0a, #0d0a0a); }
+
+  .facette-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+  }
+
+  .facette-panel.legal::before { background: linear-gradient(90deg, #2d6a2d, transparent); }
+  .facette-panel.illegal::before { background: linear-gradient(90deg, var(--red-bright), transparent); }
+
+  .facette-badge {
+    font-family: 'Oswald', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+  }
+
+  .facette-panel.legal .facette-badge {
+    background: rgba(45,106,45,0.3);
+    color: #5cb85c;
+    border: 1px solid rgba(45,106,45,0.4);
+  }
+
+  .facette-panel.illegal .facette-badge {
+    background: rgba(139,26,26,0.3);
+    color: #e57373;
+    border: 1px solid rgba(139,26,26,0.4);
+  }
+
+  .facette-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    line-height: 1;
+  }
+
+  .facette-panel.legal .facette-title { color: rgba(200,220,200,0.9); }
+  .facette-panel.illegal .facette-title { color: rgba(220,180,180,0.9); }
+
+  .facette-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .facette-items li {
+    padding: 0.8rem 1rem;
+    background: rgba(0,0,0,0.3);
+    border-left: 2px solid;
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .facette-panel.legal .facette-items li { border-color: rgba(45,106,45,0.6); }
+  .facette-panel.illegal .facette-items li { border-color: rgba(139,26,26,0.6); }
+
+  .facette-items li strong {
+    display: block;
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+
+  .facette-panel.legal .facette-items li strong { color: #5cb85c; }
+  .facette-panel.illegal .facette-items li strong { color: #e57373; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 3rem 0;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--gold);
+    letter-spacing: 6px;
+    opacity: 0.4;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-sub {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    opacity: 0.4;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .lead-wrapper { grid-template-columns: 1fr; }
+    .lead-id-card { position: static; }
+  }
+
+  @media (max-width: 768px) {
+    .histoire-grid, .objectifs-cols, .membres-grid, .pres-grid, .facettes-split { grid-template-columns: 1fr; }
+    .membres-grid { grid-template-columns: 1fr 1fr; }
+    .ambition-item { grid-template-columns: 50px 1fr; gap: 1rem; }
+    .ambition-num { font-size: 48px; }
+    nav button { font-size: 10px; padding: 1rem 0.9rem; letter-spacing: 2px; }
+  }
+
+  @media (max-width: 480px) {
+    .membres-grid { grid-template-columns: 1fr; }
+  }
+
+  .deco-line {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    opacity: 0.3;
+  }
+  .deco-line::before, .deco-line::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gold);
+  }
+  .deco-line span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    color: var(--gold);
+    letter-spacing: 3px;
+  }
+
+  section.active > .container > * {
+    animation: fadeInUp 0.5s both;
+  }
+  section.active > .container > *:nth-child(2) { animation-delay: 0.1s; }
+  section.active > .container > *:nth-child(3) { animation-delay: 0.2s; }
+  section.active > .container > *:nth-child(4) { animation-delay: 0.3s; }
+
+  @keyframes fadeInUp {
+    from { opacity:0; transform: translateY(20px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <div class="header-bg"></div>
+  <div class="header-grid"></div>
+
+  <div class="seal">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="95" fill="none" stroke="#c8a84b" stroke-width="1.5" opacity="0.5"/>
+      <circle cx="100" cy="100" r="88" fill="none" stroke="#c8a84b" stroke-width="0.5" opacity="0.3"/>
+      <g transform="translate(100,100)">
+        <polygon points="0,-55 6,-20 22,-38 12,-8 35,-25 18,2 40,10 20,12 38,28 15,20 22,45 5,28 0,50 -5,28 -22,45 -15,20 -38,28 -20,12 -40,10 -18,2 -35,-25 -12,-8 -22,-38 -6,-20" fill="#8b1a1a" opacity="0.7"/>
+        <text x="0" y="-4" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="22" fill="#c8a84b" letter-spacing="2">XIII</text>
+        <text x="0" y="14" text-anchor="middle" font-family="'Oswald',sans-serif" font-size="9" fill="#c8a84b" font-weight="300" letter-spacing="3">PLAYEROS</text>
+      </g>
+      <defs>
+        <path id="topArc" d="M 15,100 A 85,85 0 0,1 185,100"/>
+        <path id="botArc" d="M 185,100 A 85,85 0 0,1 15,100"/>
+      </defs>
+      <text font-family="'Oswald',sans-serif" font-size="10" fill="#c8a84b" font-weight="300" letter-spacing="5" opacity="0.8">
+        <textPath href="#topArc" startOffset="8%">EASTSIDE PLAYEROS</textPath>
+      </text>
+      <text font-family="'Oswald',sans-serif" font-size="10" fill="#c8a84b" font-weight="300" letter-spacing="5" opacity="0.8">
+        <textPath href="#botArc" startOffset="8%">NOFACE WL • GTA RP</textPath>
+      </text>
+    </svg>
+  </div>
+
+  <div class="header-content">
+    <div class="tag-server">NoFace Whitelist — GTA Roleplay</div>
+    <h1>East<span>Side</span><br>Playeros</h1>
+    <div class="header-sub">E &nbsp;·&nbsp; S &nbsp;·&nbsp; P</div>
+    <div class="divider-gold"></div>
+    <div class="header-motto">« La familia no se elige — se protege. »</div>
+  </div>
+
+  <div class="scroll-cue">Scroll</div>
+</header>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">ESP</div>
+    <button class="active" onclick="showTab('histoire')">Histoire</button>
+    <button onclick="showTab('membres')">Membres</button>
+    <button onclick="showTab('objectifs')">Objectifs</button>
+    <button onclick="showTab('presentation')">Présentation</button>
+    <button onclick="showTab('ambitions')">Ambitions</button>
+    <button onclick="showTab('lead')">Lead HRP</button>
+    <button onclick="showTab('legal')">Facettes</button>
+  </div>
+</nav>
+
+<!-- ══ HISTOIRE ══ -->
+<section id="histoire" class="active">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">Origines & Racines</div>
+      <h2>L'<span class="accent">Histoire</span><br>de la Clique</h2>
+    </div>
+    <div class="histoire-grid">
+      <div class="histoire-text">
+        <p>L'EastSide Playeros — ou ESP — est née dans les rues chaudes et poussiéreuses de l'East Side, un territoire longtemps oublié des institutions et laissé aux mains de ceux qui n'avaient d'autre choix que de s'en emparer. C'est là, dans les blocs résidentiels décrépits et les ruelles aux murs couverts de tags, que les premiers membres ont tracé les contours d'une fraternité.</p>
+        <p>Fondée par des jeunes d'origine hispanique, dont les familles avaient traversé des décennies de pauvreté et de marginalisation, la clique s'est d'abord construite autour d'un principe simple : <em>survivre ensemble là où survivre seul est impossible.</em> Le nom « Playeros » — ceux du rivage — symbolise cette idée de frontière, de gens debout à l'orée du monde légal, les pieds dans deux eaux.</p>
+        <p>Rattachés au gang mère <strong>Playeros13</strong>, les ESP héritent d'une tradition hispanique forte, d'un code de conduite rigide et d'une allégeance qui ne se discute pas. Mais au sein de cette grande structure, l'EastSide Playeros s'est taillé sa propre identité : plus discrète, plus stratégique, plus ambitieuse que ses prédécesseurs.</p>
+        <p>Aujourd'hui, la clique compte six membres soudés, chacun portant son rôle comme une armure. De Salazar Palacios, figure de proue calme et inflexible, à Dante Reyes, le plus imprévisible du groupe — l'ESP avance, unie sous la bannière du treize.</p>
+      </div>
+      <div class="histoire-stats">
+        <div class="stat-block">
+          <div class="stat-label">Gang affilié</div>
+          <div class="stat-value">Playeros13</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-label">Clique</div>
+          <div class="stat-value">EastSide Playeros</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-label">Abréviation</div>
+          <div class="stat-value">ESP</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-label">Origine</div>
+          <div class="stat-value">Hispanique — East Side</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-label">Effectif actuel</div>
+          <div class="stat-value">6 membres</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-label">Serveur</div>
+          <div class="stat-value">NoFace WL</div>
+        </div>
+        <div class="deco-line"><span>XIII</span></div>
+        <div class="info-card">
+          <div class="info-card-title">Couleurs & Symboles</div>
+          <div class="info-card-body">Rouge sang, or et noir — les couleurs de l'EST. Le chiffre XIII, héritage du 13ème rang alphabétique de la lettre M pour <em>la MEXicana</em>. Une étoile à treize branches sur chaque insigne, tatoué dans la mémoire de ceux qui ont prêté serment.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MEMBRES ══ -->
+<section id="membres">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">La Familia</div>
+      <h2>Les <span class="accent">Six</span><br>Soldats</h2>
+    </div>
+
+    <div class="membres-grid">
+
+      <!-- Salazar Palacios -->
+      <div class="membre-card" onclick="toggleCard(this)">
+        <div class="membre-discord-zone">
+          <span class="rank-badge"></span>
+          <div class="discord-label">Discord</div>
+          <div class="discord-pseudo">Nydr0b9</div>
+          <div class="discord-id">ID : 357560014338129930</div>
+          <span class="deco-num">01</span>
+        </div>
+        <div class="membre-info">
+          <div class="membre-name">Salazar Palacios</div>
+          <div class="membre-alias">« El Sereno »</div>
+          <div class="membre-desc">Fondateur & tête pensante de l'ESP. La parole calme qui pèse plus lourd qu'un coup de feu.</div>
+          <div class="expand-btn">▾ Voir le dossier</div>
+        </div>
+        <div class="membre-details">
+          <p><strong>Background :</strong> Né dans une famille de travailleurs immigrés mexicains, Salazar a grandi en voyant son père se tuer à la tâche sans jamais avancer. Tôt, il a compris que le système n'était pas fait pour lui. Froid, méthodique, il a rejoint les Playeros13 à 17 ans et fondé la clique ESP quelques années plus tard avec la ferme conviction qu'on pouvait faire les choses mieux — et plus intelligemment.</p>
+          <p><strong>Rôle :</strong> Shot caller, prise de décisions stratégiques, diplomatie externe.</p>
+          <span class="membre-tag">Leadership</span>
+          <span class="membre-tag">Négociation</span>
+          <span class="membre-tag">Stratégie</span>
+        </div>
+      </div>
+
+      <!-- Jesus Pepe -->
+      <div class="membre-card" onclick="toggleCard(this)">
+        <div class="membre-discord-zone">
+          <span class="rank-badge"></span>
+          <div class="discord-label">Discord</div>
+          <div class="discord-pseudo">Amadhy</div>
+          <div class="discord-id">ID : 212240805950259200</div>
+          <span class="deco-num">02</span>
+        </div>
+        <div class="membre-info">
+          <div class="membre-name">Jèsus Pepe</div>
+          <div class="membre-alias">« El Santo »</div>
+          <div class="membre-desc">Le bras droit. Aussi dévot qu'impitoyable — il prie avant, pas après.</div>
+          <div class="expand-btn">▾ Voir le dossier</div>
+        </div>
+        <div class="membre-details">
+          <p><strong>Background :</strong> Élevé dans une famille profondément catholique du Texas, Jèsus a débarqué en ville après la mort de son frère aîné dans une fusillade de gang adverse. Il a rejoint l'ESP non pas par choix mais par nécessité, et y a trouvé une nouvelle famille. Sa foi n'est pas une faiblesse — c'est son carburant.</p>
+          <p><strong>Rôle :</strong> Second de Salazar, gestion des opérations terrain, point de contact avec Playeros13.</p>
+          <span class="membre-tag">Opérations</span>
+          <span class="membre-tag">Terrain</span>
+          <span class="membre-tag">Loyauté</span>
+        </div>
+      </div>
+
+      <!-- Alvaro Diaz -->
+      <div class="membre-card" onclick="toggleCard(this)">
+        <div class="membre-discord-zone">
+          <span class="rank-badge"></span>
+          <div class="discord-label">Discord</div>
+          <div class="discord-pseudo">Bylkaa952</div>
+          <div class="discord-id">ID : 480265028285628433</div>
+          <span class="deco-num">03</span>
+        </div>
+        <div class="membre-info">
+          <div class="membre-name">Alvaro Diaz</div>
+          <div class="membre-alias">« El Contador »</div>
+          <div class="membre-desc">Cerveau financier. Si l'argent circule, c'est grâce à lui. Si il disparaît, c'est de sa faute.</div>
+          <div class="expand-btn">▾ Voir le dossier</div>
+        </div>
+        <div class="membre-details">
+          <p><strong>Background :</strong> Ancien étudiant en comptabilité qui a décroché en troisième année, Alvaro avait le talent mais pas les contacts. Il a rapidement compris que ses compétences valaient de l'or dans les bonnes mains. Rejoint l'ESP via Salazar, avec qui il partageait un appartement miteux. Gère le blanchiment, les investissements légaux et les caisses.</p>
+          <p><strong>Rôle :</strong> Gestion financière, façade légale, développement des activités commerciales de couverture.</p>
+          <span class="membre-tag">Finance</span>
+          <span class="membre-tag">Blanchiment</span>
+          <span class="membre-tag">Commerce</span>
+        </div>
+      </div>
+
+      <!-- Fernando Palacios -->
+      <div class="membre-card" onclick="toggleCard(this)">
+        <div class="membre-discord-zone">
+          <span class="rank-badge"></span>
+          <div class="discord-label">Discord</div>
+          <div class="discord-pseudo">Lilmonkey5496</div>
+          <div class="discord-id">ID : 646435751411843097</div>
+          <span class="deco-num">04</span>
+        </div>
+        <div class="membre-info">
+          <div class="membre-name">Fernando Palacios</div>
+          <div class="membre-alias">« El Lobo »</div>
+          <div class="membre-desc">Petit frère de Salazar. Plus fougueux, plus dangereux — et trop loyal pour être raisonnable.</div>
+          <div class="expand-btn">▾ Voir le dossier</div>
+        </div>
+        <div class="membre-details">
+          <p><strong>Background :</strong> Fernando a grandi dans l'ombre de Salazar, cherchant constamment à prouver qu'il valait mieux que son aîné. Cette rivalité fraternelle l'a rendu combatif, parfois impulsif. Il a rejoint l'ESP dès ses 18 ans, refusant les tentatives de Salazar pour l'en éloigner. Il est aujourd'hui l'enforcer de la clique — celui qu'on envoie quand la subtilité ne suffit plus.</p>
+          <p><strong>Rôle :</strong> Force musclée, intimidation, protection des membres et du territoire.</p>
+          <span class="membre-tag">Combat</span>
+          <span class="membre-tag">Protection</span>
+          <span class="membre-tag">Territoire</span>
+        </div>
+      </div>
+
+      <!-- Oncan Ortiz -->
+      <div class="membre-card" onclick="toggleCard(this)">
+        <div class="membre-discord-zone">
+          <span class="rank-badge"></span>
+          <div class="discord-label">Discord</div>
+          <div class="discord-pseudo">Biozard92.94</div>
+          <div class="discord-id">ID : 667437761669627935</div>
+          <span class="deco-num">05</span>
+        </div>
+        <div class="membre-info">
+          <div class="membre-name">Oncan Ortiz</div>
+          <div class="membre-alias">« La Sombra »</div>
+          <div class="membre-desc">Le fantôme de la clique. On ne le voit que s'il veut bien être vu — et rarement deux fois.</div>
+          <div class="expand-btn">▾ Voir le dossier</div>
+        </div>
+        <div class="membre-details">
+          <p><strong>Background :</strong> Oncan est un mystère même pour ses proches. D'origines mexicano-amérindiennes, il a grandi dans plusieurs foyers et appris très tôt à disparaître dans les décors. Ses aptitudes en surveillance, en reconnaissance et en discrétion l'ont rendu indispensable. Il parle peu, observe tout, et frappe quand personne ne s'y attend.</p>
+          <p><strong>Rôle :</strong> Renseignement, surveillance, reconnaissance, opérations clandestines.</p>
+          <span class="membre-tag">Renseignement</span>
+          <span class="membre-tag">Discrétion</span>
+          <span class="membre-tag">Infiltration</span>
+        </div>
+      </div>
+
+      <!-- Dante Reyes -->
+      <div class="membre-card" onclick="toggleCard(this)">
+        <div class="membre-discord-zone">
+          <span class="rank-badge"></span>
+          <div class="discord-label">Discord</div>
+          <div class="discord-pseudo">Blooodstaineeedd</div>
+          <div class="discord-id">ID : 143948076583748008​6</div>
+          <span class="deco-num">06</span>
+        </div>
+        <div class="membre-info">
+          <div class="membre-name">Dante Reyes</div>
+          <div class="membre-alias">« El Diablo »</div>
+          <div class="membre-desc">L'imprévisible. Une bombe à retardement avec un sens de l'humour douteux et une loyauté absolue.</div>
+          <div class="expand-btn">▾ Voir le dossier</div>
+        </div>
+        <div class="membre-details">
+          <p><strong>Background :</strong> Dante a tout perdu à 15 ans dans un incendie qui a ravagé le logement familial. Ce drame l'a rendu à la fois insouciant et déterminé — comme s'il n'avait plus rien à perdre. Il a rejoint l'ESP par l'intermédiaire de Fernando, avec qui il partage une histoire commune de rue. Imprévisible en apparence, il est en réalité d'une fidélité à toute épreuve.</p>
+          <p><strong>Rôle :</strong> Actions musclées, couverture des opérations à risque, déstabilisation des adversaires.</p>
+          <span class="membre-tag">Action</span>
+          <span class="membre-tag">Risque</span>
+          <span class="membre-tag">Loyauté</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ OBJECTIFS ══ -->
+<section id="objectifs">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">Vision Temporelle</div>
+      <h2>Nos <span class="accent">Objectifs</span></h2>
+    </div>
+    <div class="objectifs-cols">
+      <div class="objectif-bloc" data-terme="Court terme">
+        <div class="objectif-title">Poser les bases</div>
+        <ul class="objectif-list">
+          <li>Sécuriser et marquer le territoire de l'East Side</li>
+          <li>Établir des premières sources de revenus stables</li>
+          <li>Imposer notre respect sur LongBeach</li>
+          <li>Identifier les acteurs clés de la ville (alliés, neutres, ennemis)</li>
+          <li>Développer une couverture légale crédible</li>
+          <li>Obtenir la reconnaissance de Playeros13 sur notre zone</li>
+        </ul>
+      </div>
+      <div class="objectif-bloc" data-terme="Moyen terme">
+        <div class="objectif-title">Monter en puissance</div>
+        <ul class="objectif-list">
+          <li>Établir des alliances avec d'autres structures hispaniques</li>
+          <li>Développer un réseau de distribution fiable</li>
+          <li>Investir dans des activités légales rentables (couverture)</li>
+          <li>Former les membres aux disciplines qui leur manquent</li>
+          <li>Construire une réputation de sérieux et d'efficacité</li>
+          <li>Acquérir des biens (planques, véhicules, armement)</li>
+        </ul>
+      </div>
+      <div class="objectif-bloc" data-terme="Long terme">
+        <div class="objectif-title">Dominer et durer</div>
+        <ul class="objectif-list">
+          <li>Devenir un pilier incontournable de LongBeach</li>
+          <li>Blanchir suffisamment pour opérer en semi-légalité</li>
+          <li>Peser sur l'économie locale via des fronts légaux</li>
+          <li>Être reconnus par toute la structure Playeros13</li>
+          <li>Transmettre la clique à une nouvelle génération</li>
+          <li>Assurer l'impunité des membres par des contacts haut placés</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRESENTATION ══ -->
+<section id="presentation">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">Qui sommes-nous</div>
+      <h2>Présentation<br><span class="accent">de la Clique</span></h2>
+    </div>
+    <div class="pres-hero">
+      <p>L'<strong>EastSide Playeros</strong> est une clique hispanique opérant dans le quartier East Side sous l'autorité du gang <strong>Playeros13</strong>. Fondée par Salazar Palacios, elle regroupe six individus issus de la rue, liés non par le sang — mais par le serment, la survie et le respect mutuel.</p>
+      <p>La philosophie de l'ESP repose sur trois piliers : la <em>discrétion</em>, la <em>solidarité</em> et l'<em>ambition calculée</em>. Pas de violence gratuite, pas d'étalage inutile — mais une réponse systématique et proportionnée à toute menace. Là où d'autres gangs s'exposent, l'ESP avance dans l'ombre.</p>
+      <p>Culturellement hispanique dans son âme, la clique revendique ses racines tout en s'adaptant aux codes de la ville. La langue, les valeurs familiales, la fierté du territoire — tout ça cohabite avec une vision froide et stratégique du monde criminel.</p>
+    </div>
+    <div class="pres-grid">
+      <div class="info-card">
+        <div class="info-card-title">Identité culturelle</div>
+        <div class="info-card-body">Latina jusqu'à la moelle. La clique s'exprime en espagnol entre ses membres, respecte la <em>familismo</em> et tient à la culture de rue hispanique — musique, tatouages, rituel des couleurs. XIII est gravé dans leur chair comme dans leur esprit.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">Code de conduite</div>
+        <div class="info-card-body">Pas d'agression envers les civils innocents. Pas de trahison — sous aucun prétexte. La parole donnée est sacrée. Les conflits internes se règlent entre nous. Et personne ne parle à la police — jamais.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">Structure interne</div>
+        <div class="info-card-body">Shot Caller → Lieutenant → Membres actifs. Chaque décision d'ampleur est validée par Salazar. Chaque opération est préparée par Jèsus. L'exécution est collective, la responsabilité aussi.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">Relations extérieures</div>
+        <div class="info-card-body">Neutre avec la plupart jusqu'à preuve du contraire. Alliés avec les structures hispaniques partageant nos valeurs. Ennemis déclarés : ceux qui violent notre territoire ou s'en prennent à nos frères.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ AMBITIONS ══ -->
+<section id="ambitions">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">Ce vers quoi on tend</div>
+      <h2>Nos <span class="accent">Ambitions</span></h2>
+    </div>
+    <div class="ambitions-list">
+      <div class="ambition-item">
+        <div class="ambition-num">01</div>
+        <div class="ambition-content">
+          <h3>Faire de l'East Side notre empire</h3>
+          <p>Contrôler chaque bloc, chaque rue, chaque flux économique de LongBeach. Pas par la terreur — par la présence, le respect et l'omniprésence. Être si incontournables que même les autorités devront composer avec nous.</p>
+        </div>
+      </div>
+      <div class="ambition-item">
+        <div class="ambition-num">02</div>
+        <div class="ambition-content">
+          <h3>Construire un empire légal parallèle</h3>
+          <p>Derrière chaque business illégal, un front légal solide. Laveries, restaurants, garages — autant de façades qui génèrent du cash propre et qui offrent une respectabilité sociale à nos membres. L'argent sale devient propre, et la réputation suit.</p>
+        </div>
+      </div>
+      <div class="ambition-item">
+        <div class="ambition-num">03</div>
+        <div class="ambition-content">
+          <h3>S'imposer au sein de Playeros13</h3>
+          <p>L'ESP ne veut pas rester une clique parmi d'autres. À terme, Salazar ambitionne que l'EastSide Playeros soit la référence au sein du gang mère — celle qu'on consulte, celle qu'on respecte, celle qu'on craint un peu aussi.</p>
+        </div>
+      </div>
+      <div class="ambition-item">
+        <div class="ambition-num">04</div>
+        <div class="ambition-content">
+          <h3>Protéger la communauté hispanique</h3>
+          <p>La clique ne s'est pas construite pour opprimer les siens. Être un rempart pour les familles hispanophones du quartier, financer discrètement des initiatives communautaires, être perçus comme des protecteurs autant que comme des criminels.</p>
+        </div>
+      </div>
+      <div class="ambition-item">
+        <div class="ambition-num">05</div>
+        <div class="ambition-content">
+          <h3>Assurer la pérennité de l'ESP</h3>
+          <p>Qu'est-ce qu'un gang qui meurt avec ses fondateurs ? L'ESP doit transcender ses membres. Recruter, former, transmettre — pour que dans dix ans, le nom EastSide Playeros soit encore respecté dans chaque rue de l'East Side.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LEAD HRP ══ -->
+<section id="lead">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">Hors RP — Expérience du fondateur</div>
+      <h2>Lead <span class="accent">HRP</span></h2>
+    </div>
+
+    <div class="lead-wrapper">
+
+      <!-- Carte identité -->
+      <div class="lead-id-card">
+        <div class="lead-id-top">
+          <div class="lead-id-label">Fondateur du projet</div>
+          <div class="lead-id-name">Quentin</div>
+        </div>
+        <div class="lead-id-body">
+          <div class="lead-id-row">
+            <span class="lead-id-key">Âge</span>
+            <span class="lead-id-val">26 ans - 09/07/2000</span>
+          </div>
+          <div class="lead-id-row">
+            <span class="lead-id-key">Pseudo Discord</span>
+            <span class="lead-id-val">Nydrob9</span>
+          </div>
+          <div class="lead-id-row">
+            <span class="lead-id-key">ID Discord</span>
+            <span class="lead-id-val mono">357560014338129930</span>
+          </div>
+          <div class="lead-id-row">
+            <span class="lead-id-key">Rôle sur l'ESP</span>
+            <span class="lead-id-val">Lead Projet</span>
+          </div>
+          <div class="lead-id-row">
+            <span class="lead-id-key">Profil</span>
+            <span class="lead-id-val">Lead expérimenté — plusieurs projets menés jusqu'au bout sur des serveurs réputés</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Expériences -->
+      <div class="lead-xp">
+
+        <div class="lead-server-block">
+          <div class="lead-server-header">
+            <div class="lead-server-dot"></div>
+            <div class="lead-server-name">Split</div>
+          </div>
+          <div class="lead-xp-list">
+            <div class="lead-xp-item">
+              <div>
+                <div class="lead-xp-role">Lead Projet</div>
+                <div class="lead-xp-name">Rollins 30 Harlem Crips</div>
+              </div>
+              <div class="lead-xp-duration">6 mois</div>
+            </div>
+            <div class="lead-xp-item">
+              <div>
+                <div class="lead-xp-role">Lead Projet</div>
+                <div class="lead-xp-name">O'Block</div>
+              </div>
+              <div class="lead-xp-duration">4 mois</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lead-server-block">
+          <div class="lead-server-header">
+            <div class="lead-server-dot"></div>
+            <div class="lead-server-name">Hurricane</div>
+          </div>
+          <div class="lead-xp-list">
+            <div class="lead-xp-item">
+              <div>
+                <div class="lead-xp-role">Gang Member</div>
+                <div class="lead-xp-name">Frontstreet</div>
+              </div>
+              <div class="lead-xp-duration">2 mois</div>
+            </div>
+            <div class="lead-xp-item">
+              <div>
+                <div class="lead-xp-role">Gang Member</div>
+                <div class="lead-xp-name">TRG</div>
+              </div>
+              <div class="lead-xp-duration">2 mois</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lead-server-block">
+          <div class="lead-server-header">
+            <div class="lead-server-dot"></div>
+            <div class="lead-server-name">Arkane WL</div>
+          </div>
+          <div class="lead-xp-list">
+            <div class="lead-xp-item">
+              <div>
+                <div class="lead-xp-role">Lead Projet</div>
+                <div class="lead-xp-name">Rollins 30</div>
+              </div>
+              <div class="lead-xp-duration">3 mois</div>
+            </div>
+            <div class="lead-xp-item">
+              <div>
+                <div class="lead-xp-role">Second du projet — GM pendant 2 mois</div>
+                <div class="lead-xp-name">Black Mamba Family "BMF"</div>
+              </div>
+              <div class="lead-xp-duration">2 mois</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FACETTES ══ -->
+<section id="legal">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">Double identité</div>
+      <h2>Les deux <span class="accent">Facettes</span></h2>
+    </div>
+    <div class="facettes-split">
+      <div class="facette-panel legal">
+        <div class="facette-badge">Façade Légale</div>
+        <div class="facette-title">La Lumière</div>
+        <ul class="facette-items">
+          <li><strong>Épicerie & Supérette El Barrio</strong>Commerce de quartier hispanique tenu par Alvaro. Point de rencontre communautaire, couverture idéale, flux de cash légitimé.</li>
+          <li><strong>Garage Mécanique Palacios</strong>Atelier tenu sous le nom de Fernando. Répare de vrais véhicules, prépare aussi les véhicules opérationnels de la clique.</li>
+          <li><strong>Service de livraison indépendant</strong>Réseau de livreurs permettant des déplacements discrets sur tout le territoire. Couverture parfaite pour Oncan Ortiz.</li>
+          <li><strong>Présence communautaire</strong>Participation aux événements du quartier hispanique, soutien discret aux familles dans le besoin. Réputation de protecteurs.</li>
+          <li><strong>Investissements immobiliers</strong>Acquisition progressive de propriétés dans la ville pour légitimer le patrimoine et sécuriser des planques.</li>
+        </ul>
+      </div>
+      <div class="facette-panel illegal">
+        <div class="facette-badge">Activités Illicites</div>
+        <div class="facette-title">L'Ombre</div>
+        <ul class="facette-items">
+          <li><strong>Trafic de stupéfiants</strong>Distribution contrôlée sur le territoire. Réseau de revendeurs géré par Jèsus, sécurisé par Fernando et Dante.</li>
+          <li><strong>Recel & marché noir</strong>Récupération et revente de marchandises volées. Dante gère les contacts, Alvaro valide les prix et les acheteurs.</li>
+          <li><strong>Extorsion ciblée</strong>Protection rémunérée des commerces du quartier qui ne sont pas sous protection directe. Discret, jamais violent sans raison.</li>
+          <li><strong>Blanchiment d'argent</strong>Via les façades commerciales, l'argent illégal rentre dans le circuit légal. Géré exclusivement par Alvaro Diaz.</li>
+          <li><strong>Trafic d'armes secondaire</strong>Pas le cœur de métier, mais une source d'approvisionnement et de revenus complémentaires quand l'opportunité se présente.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="container">
+    <div class="footer-logo">ESP</div>
+    <div class="footer-sub">EastSide Playeros · Playeros13 · NoFace Whitelist · XIII</div>
+  </div>
+</footer>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    const tabMap = { histoire:0, membres:1, objectifs:2, presentation:3, ambitions:4, lead:5, legal:6 };
+    const btns = document.querySelectorAll('nav button');
+    if (btns[tabMap[id]]) btns[tabMap[id]].classList.add('active');
+    window.scrollTo({ top: document.querySelector('nav').offsetTop - 10, behavior: 'smooth' });
+  }
+
+function toggleCard(card) {
+    const isExpanded = card.classList.contains('expanded');
+    document.querySelectorAll('.membre-card').forEach(c => c.classList.remove('expanded'));
+    if (!isExpanded) card.classList.add('expanded');
+    const btn = card.querySelector('.expand-btn');
+    if (btn) btn.textContent = card.classList.contains('expanded') ? '▴ Fermer le dossier' : '▾ Voir le dossier';
+  }
+</script>
+</body>
+</html>
